@@ -7,39 +7,57 @@ from medicos.models import Agenda
 
 class Cliente(models.Model):
     SEXO = (
-        ("MAS", "Maculino"),
-        ("FEM", "Feminino")
+        ("MAS", "Masculino"),
+        ("FEM", "Femenino")
     )
     
-    sexo = models.CharField(max_length=9, choices=SEXO,)
+    sexo = models.CharField(max_length=9, choices=SEXO, verbose_name="Sexo")
     
-    phone_regex = RegexValidator(
+    validador_telefono = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
-        message="O número precisa estar neste formato: \
-                        '+99 99 9999-0000'.")
-
-    telefone = models.CharField(verbose_name="Telefone",
-                                validators=[phone_regex],
-                                max_length=17, null=True, blank=True)
-    cpf = CPFField(verbose_name="CPF",
-                    max_length=50,
-                    unique=True,)
+        message="El número debe estar en este formato: '+99 99 9999-0000'."
+    )
+    telefono = models.CharField(
+        verbose_name="Teléfono",
+        validators=[validador_telefono],
+        max_length=17,
+        null=True,
+        blank=True
+    )
     
-    user = models.OneToOneField(
+    nif = CPFField(
+        verbose_name="NIF",
+        max_length=50,
+        unique=True
+    )
+    
+    usuario = models.OneToOneField(
         settings.AUTH_USER_MODEL, 
-        verbose_name='Usuário', 
+        verbose_name='Usuario', 
         on_delete=models.CASCADE
     )
-    
+
     def __str__(self):
-        return f'{self.user.name}'
-    
+        return f'{self.usuario.username}'  # Asume que el modelo de usuario tiene un campo "username"
+
 class Consulta(models.Model):
-    agenda =  OneToOneField(Agenda, on_delete=models.CASCADE, related_name='consulta')
-    cliente = ForeignKey(Cliente, on_delete=models.CASCADE, related_name='consulta')
+    agenda = OneToOneField(
+        Agenda,
+        on_delete=models.CASCADE,
+        related_name='consulta',
+        verbose_name="Agenda"
+    )
+    cliente = ForeignKey(
+        Cliente,
+        on_delete=models.CASCADE,
+        related_name='consulta',
+        verbose_name="Cliente"
+    )
     
     class Meta:
         unique_together = ('agenda', 'cliente')
+        verbose_name = "Consulta"
+        verbose_name_plural = "Consultas"
         
     def __str__(self):
         return f'{self.agenda} - {self.cliente}'

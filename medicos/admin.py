@@ -1,20 +1,22 @@
 from django.contrib import admin
+from medicos.models import Especialidad, Medico, Agenda
 
-from medicos.models import Especialidade, Medico, Agenda
+class EspecialidadAdmin(admin.ModelAdmin):
+    list_display = ['nombre']  # Cambiado 'nome' a 'nombre' para consistencia en español.
 
-class EspecialidadeAdmin(admin.ModelAdmin):
-    list_display = ['nome']
-    
 class MedicoAdmin(admin.ModelAdmin):
     list_display = [
-        'nome', 'crm', 'telefone',
+        'nombre', 'crm', 'telefono',  # Cambiado a español.
     ]
-    
+    search_fields = ['nombre', 'crm']  # Permitir búsqueda por nombre y CRM.
+
 class AgendaAdmin(admin.ModelAdmin):
     list_display = [
-        'dia', 'medico', 'horario'
+        'dia', 'medico', 'horario'  # Campos en español.
     ]
-    
-admin.site.register(Especialidade, EspecialidadeAdmin)
+    list_filter = ['dia', 'medico']  # Filtrar por día y médico.
+    ordering = ['dia']  # Ordenar las agendas por fecha.
+
+admin.site.register(Especialidad, EspecialidadAdmin)
 admin.site.register(Medico, MedicoAdmin)
 admin.site.register(Agenda, AgendaAdmin)

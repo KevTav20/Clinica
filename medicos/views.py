@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Medico, Agenda, Especialidade
+from .models import Medico, Agenda, Especialidad
 
 
 class TestMixinIsAdmin(UserPassesTestMixin):
@@ -23,7 +23,7 @@ class MedicoCreateView(LoginRequiredMixin, TestMixinIsAdmin, CreateView):
     model = Medico
     login_url = 'accounts:login'
     template_name = 'medicos/cadastro.html'
-    fields = ['nome', 'crm', 'email', 'telefone', 'especialidade']
+    fields = ['nombre', 'crm', 'correo_electronico', 'telefono', 'especialidad']
     success_url = reverse_lazy('medicos:medicos_lista')
     
 class MedicoListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
@@ -36,10 +36,10 @@ class MedicoListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
     
 class EspecialidadeCreateView(LoginRequiredMixin, TestMixinIsAdmin, CreateView):
 
-    model = Especialidade
+    model = Especialidad
     login_url = 'accounts:login'
     template_name = 'medicos/cadastro.html'
-    fields = ['nome',]
+    fields = ['nombre',]
     success_url = reverse_lazy('medicos:especialidade_lista')
     
 class EspecialidadeListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
@@ -48,7 +48,7 @@ class EspecialidadeListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
     template_name = 'medicos/especialidade_list.html'
 
     def get_queryset(self):
-        return Especialidade.objects.all().order_by('-pk')
+        return Especialidad.objects.all().order_by('-pk')
 
 
 class AgendaCreateView(LoginRequiredMixin, TestMixinIsAdmin, CreateView):
