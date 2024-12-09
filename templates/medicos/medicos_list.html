@@ -1,11 +1,11 @@
 {% extends "accounts/index.html" %}
 
 {% block title %}
-    Medicos
+    Médicos
 {% endblock %}
 
 {% block accounts_container %}
-<h2>Medicos</h2>
+<h2>Médicos</h2>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -13,19 +13,19 @@
                 ID
             </th>
             <th>
-                Nome
+                Nombre
             </th>
             <th>
-                E-mail
+                Correo Electrónico
             </th>
             <th>
                 CRM 
             </th>
             <th>
-                Especialidade
+                Especialidad
             </th>
             <th>
-                Telefone
+                Teléfono
             </th>
         </tr>
     </thead>
@@ -36,19 +36,19 @@
                 <a href=""># {{ medico.pk }}</a>
             </td>
             <td>
-                {{ medico.nome }}
+                {{ medico.nombre }}
             </td>
             <td>
-                {{ medico.email }}
+                {{ medico.correo_electronico }}
             </td>
             <td>
                 {{ medico.crm }}
             </td>
             <td>
-                {{ medico.especialidade }}
+                {{ medico.especialidad }}
             </td>
             <td>
-                {{ medico.telefone }}
+                {{ medico.telefono }}
             </td>
         </tr>
         {% endfor %}

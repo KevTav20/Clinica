@@ -23,7 +23,7 @@ class MedicoCreateView(LoginRequiredMixin, TestMixinIsAdmin, CreateView):
     model = Medico
     login_url = 'accounts:login'
     template_name = 'medicos/cadastro.html'
-    fields = ['nome', 'crm', 'email', 'telefone', 'especialidade']
+    fields = ['nombre', 'crm', 'correo_electronico', 'telefono', 'especialidad']
     success_url = reverse_lazy('medicos:medicos_lista')
     
 class MedicoListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
@@ -39,7 +39,7 @@ class EspecialidadeCreateView(LoginRequiredMixin, TestMixinIsAdmin, CreateView):
     model = Especialidad
     login_url = 'accounts:login'
     template_name = 'medicos/cadastro.html'
-    fields = ['nome',]
+    fields = ['nombre',]
     success_url = reverse_lazy('medicos:especialidade_lista')
     
 class EspecialidadeListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
